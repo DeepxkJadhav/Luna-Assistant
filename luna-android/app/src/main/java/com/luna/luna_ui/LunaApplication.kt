@@ -50,8 +50,12 @@ class LunaApplication : Application() {
         // Firebase's own anonymous per-install ID, attached as a custom key so it's
         // easy to eyeball alongside Analytics data. No new identifier is invented —
         // it resets on uninstall and is already attached to every crash report.
-        FirebaseInstallations.getInstance().id.addOnSuccessListener { id ->
-            FirebaseCrashlytics.getInstance().setCustomKey("installation_id", id)
+        runCatching {
+            FirebaseInstallations.getInstance().id.addOnSuccessListener { id ->
+                FirebaseCrashlytics.getInstance().setCustomKey("installation_id", id)
+            }
+        }.onFailure {
+            android.util.Log.w("LunaApplication", "FirebaseInstallations initialization skipped: ${it.message}")
         }
     }
 

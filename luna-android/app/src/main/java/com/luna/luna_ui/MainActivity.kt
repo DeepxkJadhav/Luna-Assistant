@@ -249,16 +249,18 @@ class MainActivity : FragmentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Splash (Theme.Luna.Splash): mono field + ink badge; must install before super.
         val splashScreen = installSplashScreen()
+        super.onCreate(savedInstanceState)
         
         var keepSplashScreen = true
         splashScreen.setKeepOnScreenCondition { keepSplashScreen }
         
         lifecycleScope.launch {
-            delay(750) // 0.75 seconds delay
-            keepSplashScreen = false
+            try {
+                delay(750) // 0.75 seconds delay
+            } finally {
+                keepSplashScreen = false
+            }
         }
-
-        super.onCreate(savedInstanceState)
 
         Log.d(TAG, "onCreate: Starting Luna UI")
         
@@ -280,7 +282,11 @@ class MainActivity : FragmentActivity() {
         // app being closed). Without this, a new install would never start the
         // server until the user manually toggled keep-alive ON, leading to
         // confusing "/mcp connection refused" failures.
-        AssistantForegroundService.ensureMcpServerRunning(this)
+        runCatching {
+            AssistantForegroundService.ensureMcpServerRunning(this)
+        }.onFailure {
+            Log.w(TAG, "AssistantForegroundService start failed (non-fatal)", it)
+        }
 
         // OAuth redirect from a third-party MCP server's sign-in (Sub-project #2). If this launch
         // is the luna://mcp/oauth callback, capture the code and stop — no UI flow to resume.
@@ -805,11 +811,15 @@ class MainActivity : FragmentActivity() {
      * Start visual feedback overlay service
      */
     private fun startVisualFeedbackService() {
-        if (com.luna.luna_ui.overlay.VisualFeedbackOverlayService.canDrawOverlays(this)) {
-            startService(Intent(this, com.luna.luna_ui.overlay.VisualFeedbackOverlayService::class.java))
-            Log.i(TAG, "Visual feedback overlay service started")
-        } else {
-            Log.w(TAG, "Overlay permission not granted, visual feedback disabled")
+        runCatching {
+            if (com.luna.luna_ui.overlay.VisualFeedbackOverlayService.canDrawOverlays(this)) {
+                startService(Intent(this, com.luna.luna_ui.overlay.VisualFeedbackOverlayService::class.java))
+                Log.i(TAG, "Visual feedback overlay service started")
+            } else {
+                Log.w(TAG, "Overlay permission not granted, visual feedback disabled")
+            }
+        }.onFailure {
+            Log.w(TAG, "Visual feedback service start failed (non-fatal)", it)
         }
     }
 

@@ -486,25 +486,35 @@ fun OnboardingAnimationCard(
     ) {
         AndroidView(
             factory = { context ->
-                WebView(context).apply {
-                    layoutParams = ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                    )
-                    setBackgroundColor(0x00000000)
-                    isVerticalScrollBarEnabled = false
-                    isHorizontalScrollBarEnabled = false
-                    setLayerType(View.LAYER_TYPE_HARDWARE, null)
-                    settings.apply {
-                        javaScriptEnabled = true
-                        domStorageEnabled = true
-                        allowFileAccess = true
-                        allowContentAccess = true
-                        useWideViewPort = true
-                        loadWithOverviewMode = true
+                try {
+                    WebView(context).apply {
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                        )
+                        setBackgroundColor(0x00000000)
+                        isVerticalScrollBarEnabled = false
+                        isHorizontalScrollBarEnabled = false
+                        setLayerType(View.LAYER_TYPE_HARDWARE, null)
+                        settings.apply {
+                            javaScriptEnabled = true
+                            domStorageEnabled = true
+                            allowFileAccess = true
+                            allowContentAccess = true
+                            useWideViewPort = true
+                            loadWithOverviewMode = true
+                        }
+                        loadUrl("file:///android_asset/onboarding/$assetFileName")
+                        onWebViewCreated?.invoke(this)
                     }
-                    loadUrl("file:///android_asset/onboarding/$assetFileName")
-                    onWebViewCreated?.invoke(this)
+                } catch (e: Throwable) {
+                    android.util.Log.w("OnboardingAnim", "WebView initialization failed, using blank placeholder: ${e.message}")
+                    View(context).apply {
+                        layoutParams = ViewGroup.LayoutParams(
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                            ViewGroup.LayoutParams.MATCH_PARENT,
+                        )
+                    }
                 }
             },
             modifier = Modifier.fillMaxSize(),

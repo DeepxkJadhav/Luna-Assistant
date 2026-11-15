@@ -10,6 +10,7 @@ import android.content.pm.ServiceInfo
 import android.content.res.Resources
 import android.os.Build
 import android.util.Log
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleService
 import androidx.lifecycle.lifecycleScope
 import com.luna.luna_ui.BuildConfig
@@ -556,11 +557,17 @@ class AssistantForegroundService : LifecycleService() {
         // Register ACTION_USER_PRESENT dynamically (manifest registration is
         // blocked on Android 8+ for this broadcast). When keep-alive is enabled,
         // this triggers a reconnect attempt every time the user unlocks the device.
-        registerReceiver(
-            userPresentReceiver,
-            IntentFilter(Intent.ACTION_USER_PRESENT),
-        )
-        Log.d("AssistantService", "Registered ACTION_USER_PRESENT receiver")
+        runCatching {
+            ContextCompat.registerReceiver(
+                this,
+                userPresentReceiver,
+                IntentFilter(Intent.ACTION_USER_PRESENT),
+                ContextCompat.RECEIVER_NOT_EXPORTED,
+            )
+            Log.d("AssistantService", "Registered ACTION_USER_PRESENT receiver")
+        }.onFailure {
+            Log.w("AssistantService", "Failed to register ACTION_USER_PRESENT receiver: ${it.message}")
+        }
 
         // Phase 0 spike — register the debug-only agent trigger. Exported so an
         // `adb shell am broadcast` from the workstation can reach it; never

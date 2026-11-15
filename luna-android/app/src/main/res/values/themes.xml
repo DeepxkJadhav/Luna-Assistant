@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Luna_ui" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.Luna_ui" parent="Theme.Material3.DayNight.NoActionBar" />
 
     <!-- Splash: mono canvas field with the ink badge / white mark. Hands off to the
          transparent theme so every post-splash window behavior stays as before. -->
@@ -13,7 +13,7 @@
     </style>
     
     <!-- Transparent theme for overlay-style activity -->
-    <style name="Theme.Luna_Transparent" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.Luna_Transparent" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowContentOverlay">@null</item>

@@ -171,11 +171,13 @@ fun LunaAppShell(
     val analyticsContext = LocalContext.current
     LaunchedEffect(currentRoute) {
         val route = currentRoute ?: return@LaunchedEffect
-        FirebaseAnalytics.getInstance(analyticsContext).logEvent(
-            FirebaseAnalytics.Event.SCREEN_VIEW,
-            Bundle().apply { putString(FirebaseAnalytics.Param.SCREEN_NAME, route) },
-        )
-        FirebaseCrashlytics.getInstance().log("nav: $route")
+        runCatching {
+            FirebaseAnalytics.getInstance(analyticsContext).logEvent(
+                FirebaseAnalytics.Event.SCREEN_VIEW,
+                Bundle().apply { putString(FirebaseAnalytics.Param.SCREEN_NAME, route) },
+            )
+            FirebaseCrashlytics.getInstance().log("nav: $route")
+        }
     }
     val scheme = rememberMonoScheme()
     val warm = com.luna.luna_ui.ui.theme.rememberWarmScheme()

@@ -218,7 +218,7 @@
             android:enabled="true"
             android:exported="false"
             android:stopWithTask="false"
-            android:foregroundServiceType="microphone|connectedDevice" />
+            android:foregroundServiceType="microphone|connectedDevice|specialUse" />
 
         <!-- Luna Accessibility Service -->
         <service
