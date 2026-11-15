@@ -8,23 +8,17 @@ import androidx.compose.ui.unit.dp
 import com.luna.luna_ui.presentation.components.rememberMonoScheme
 
 // ============================================================================
-// CAPSULE — the 2026-07-10 design language ("dark + light combined").
+// CAPSULE — Luna's Celestial Design System.
 //
-// Greige canvas, white sheet cards, charcoal grain cards, and ONE vermilion
-// accent — with the black capsule strip as the app's control element (bottom
-// nav on top-level screens). Dark cards live on the light canvas and light
-// content lives inside dark cards: the combination IS the hierarchy.
-//
-// Reference: user-supplied mockup (skipper-app style) + the Ivory&Onyx/Capsule
-// brainstorm (visual companion, this date). Blood red (Mono.Blood) remains the
-// overlay's semantic red; Capsule.accent is the app-side attention/brand color.
+// Luminous surfaces, midnight obsidian cards, celestial starlight accents,
+// and the velvet capsule strip as the app's primary navigation control.
 // ============================================================================
 
 data class CapsuleScheme(
     val isDark: Boolean,
     // page
-    val canvas: Color,          // greige field everything sits on
-    val card: Color,            // white sheet cards
+    val canvas: Color,          // celestial field everything sits on
+    val card: Color,            // luminous sheet cards
     val cardSoft: Color,        // recessed chip/icon wells inside cards
     val line: Color,            // hairline dividers/borders on canvas + cards
     // charcoal ("the dark card world")
@@ -36,11 +30,11 @@ data class CapsuleScheme(
     // text on canvas/cards
     val ink: Color,
     val sub: Color,
-    // the one accent
+    // celestial accent
     val accent: Color,
     val accentSoft: Color,      // soft field behind accent icons/badges
     val onAccent: Color,
-    // hero gradient (peach light field inside the hero card)
+    // hero gradient (celestial starlight field inside the hero card)
     val heroCore: Color,
     val heroMid: Color,
     val heroEdge: Color,
@@ -54,58 +48,56 @@ data class CapsuleScheme(
 
 private val CapsuleLight = CapsuleScheme(
     isDark = false,
-    canvas = Color(0xFFEAE8E1),
+    canvas = Color(0xFFF8FAFC),
     card = Color(0xFFFFFFFF),
-    cardSoft = Color(0xFFF5F3ED),
-    line = Color(0xFFE2DFD5),
-    char = Color(0xFF2B2723),
-    charDeep = Color(0xFF191613),
-    onChar = Color(0xFFF4F1EA),
-    onCharDim = Color(0xFFA5A199),
+    cardSoft = Color(0xFFF1F5F9),
+    line = Color(0xFFE2E8F0),
+    char = Color(0xFF1E1B4B),
+    charDeep = Color(0xFF0F172A),
+    onChar = Color(0xFFF8FAFC),
+    onCharDim = Color(0xFF94A3B8),
     charLine = Color(0x1AFFFFFF),
-    ink = Color(0xFF1C1A17),
-    sub = Color(0xFF8A867C),
-    accent = Color(0xFFE4572E),
-    accentSoft = Color(0xFFF9DDCE),
+    ink = Color(0xFF0F172A),
+    sub = Color(0xFF64748B),
+    accent = Color(0xFF6366F1),
+    accentSoft = Color(0xFFEEF2FF),
     onAccent = Color(0xFFFFFFFF),
-    heroCore = Color(0xFFF6CDB2),
-    heroMid = Color(0xFFF5E6D8),
-    heroEdge = Color(0xFFF4F1EA),
-    capsule = Color(0xFF0F0E0C),
-    onCapsule = Color(0xFFF4F1EA),
-    onCapsuleDim = Color(0xFF8F8B82),
-    ok = Color(0xFF3F8F5A),
+    heroCore = Color(0xFFE0E7FF),
+    heroMid = Color(0xFFEDE9FE),
+    heroEdge = Color(0xFFF8FAFC),
+    capsule = Color(0xFF0F172A),
+    onCapsule = Color(0xFFF8FAFC),
+    onCapsuleDim = Color(0xFF94A3B8),
+    ok = Color(0xFF10B981),
 )
 
-// Dark theme keeps the same combined language, inverted: charcoal canvas,
-// dark sheet cards, and the hero/peach light glowing FROM the dark.
 private val CapsuleDark = CapsuleScheme(
     isDark = true,
-    canvas = Color(0xFF151311),
-    card = Color(0xFF1F1C19),
-    cardSoft = Color(0xFF282520),
-    line = Color(0xFF2E2B26),
-    char = Color(0xFF35302A),
-    charDeep = Color(0xFF1B1916),
-    onChar = Color(0xFFF4F1EA),
-    onCharDim = Color(0xFFA5A199),
+    canvas = Color(0xFF090D16),
+    card = Color(0xFF111827),
+    cardSoft = Color(0xFF1E293B),
+    line = Color(0xFF1E293B),
+    char = Color(0xFF1E1B4B),
+    charDeep = Color(0xFF0F172A),
+    onChar = Color(0xFFF8FAFC),
+    onCharDim = Color(0xFF94A3B8),
     charLine = Color(0x1AFFFFFF),
-    ink = Color(0xFFF0EDE5),
-    sub = Color(0xFF97938A),
-    accent = Color(0xFFE86A43),
-    accentSoft = Color(0xFF3C241B),
+    ink = Color(0xFFF8FAFC),
+    sub = Color(0xFF94A3B8),
+    accent = Color(0xFF818CF8),
+    accentSoft = Color(0xFF312E81),
     onAccent = Color(0xFFFFFFFF),
-    heroCore = Color(0xFF5E3B28),
-    heroMid = Color(0xFF3A2A20),
-    heroEdge = Color(0xFF1F1C19),
-    capsule = Color(0xFF0B0A09),
-    onCapsule = Color(0xFFF4F1EA),
-    onCapsuleDim = Color(0xFF7E7A72),
-    ok = Color(0xFF5CA877),
+    heroCore = Color(0xFF312E81),
+    heroMid = Color(0xFF1E1B4B),
+    heroEdge = Color(0xFF090D16),
+    capsule = Color(0xFF030712),
+    onCapsule = Color(0xFFF8FAFC),
+    onCapsuleDim = Color(0xFF94A3B8),
+    ok = Color(0xFF34D399),
 )
 
 object Capsule {
-    /** One radius language, softer than Mono's (reference uses large soft radii). */
+    /** Smooth, soft organic radii embodying Luna's caring nature. */
     val ShapeHero = RoundedCornerShape(26.dp)
     val ShapeCard = RoundedCornerShape(22.dp)
     val ShapeChipWell = RoundedCornerShape(12.dp)
@@ -115,10 +107,10 @@ object Capsule {
     fun scheme(): CapsuleScheme = if (rememberMonoScheme().isDark) CapsuleDark else CapsuleLight
 }
 
-/** The peach hero field (warm core fading outward to canvas). */
+/** The luminous starlight hero field (celestial core fading softly to canvas). */
 fun CapsuleScheme.heroBrush(): Brush = Brush.radialGradient(
     colors = listOf(heroCore, heroMid, heroEdge),
 )
 
-/** Charcoal card field (subtle top-light like a lit slab). */
+/** Charcoal card field (deep velvet twilight with top light). */
 fun CapsuleScheme.charBrush(): Brush = Brush.verticalGradient(listOf(char, charDeep))

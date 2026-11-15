@@ -6,12 +6,11 @@ import androidx.compose.ui.graphics.Color
 import com.luna.luna_ui.presentation.components.rememberMonoScheme
 
 // ============================================================================
-// Luna WARM — the warm gradient identity (Home + app-wide canvas).
+// LUNA CELESTIAL IDENTITY — App-wide canvas & Home hero styling.
 //
-// A deliberate warming of the mono system toward Luna's own "drop of blood":
-// the canvas is a soft cream→peach gradient instead of flat white, the primary
-// action card is a bold coral→brick gradient (never black), and blood red is
-// still reserved for the live/attention dot. Theme-aware (light + dark).
+// A tranquil, intelligent celestial environment tailored for Luna:
+// deep velvet twilight, starlight silver, luminous iris, and warm solar amber
+// attention cues.
 // ============================================================================
 
 data class WarmScheme(
@@ -23,7 +22,7 @@ data class WarmScheme(
     val homeTop: Color,
     val homeMid: Color,
     val homeBottom: Color,
-    // bold primary "hero" card
+    // primary "hero" card (serene celestial gradient)
     val heroA: Color,
     val heroB: Color,
     val onHero: Color,
@@ -31,65 +30,64 @@ data class WarmScheme(
     // frosted secondary cards
     val card: Color,
     val cardBorder: Color,
-    // text on warm canvas
+    // text on canvas
     val textPrimary: Color,
     val textSecondary: Color,
     // circular icon buttons on canvas
     val iconButton: Color,
     val iconButtonContent: Color,
+    // attention/status accent (warm starlight amber)
     val blood: Color,
 )
 
 private val WarmLight = WarmScheme(
     isDark = false,
-    // Capsule redesign (2026-07-10): the app-wide canvas is the greige field.
-    canvasTop = Color(0xFFEDEBE4),
-    canvasBottom = Color(0xFFE7E5DD),
-    homeTop = Color(0xFFFDF2EC),
-    homeMid = Color(0xFFF8D9C9),
-    homeBottom = Color(0xFFF2B49B),
-    heroA = Color(0xFFF19274),
-    heroB = Color(0xFFCC4B33),
+    canvasTop = Color(0xFFF8FAFC),
+    canvasBottom = Color(0xFFF1F5F9),
+    homeTop = Color(0xFFF5F3FF),
+    homeMid = Color(0xFFEFF6FF),
+    homeBottom = Color(0xFFE0F2FE),
+    heroA = Color(0xFF6366F1),
+    heroB = Color(0xFF4F46E5),
     onHero = Color(0xFFFFFFFF),
-    onHeroDim = Color(0xFFFFE7DE),
-    card = Color(0xCCFFFFFF),          // frosted peach over the gradient
-    cardBorder = Color(0x33B5745C),
-    textPrimary = Color(0xFF2A1A13),
-    textSecondary = Color(0xFF82685E),
-    iconButton = Color(0xE6FFFFFF),
-    iconButtonContent = Color(0xFF2A1A13),
-    blood = Mono.Blood,
+    onHeroDim = Color(0xFFE0E7FF),
+    card = Color(0xEEFFFFFF),
+    cardBorder = Color(0x266366F1),
+    textPrimary = Color(0xFF0F172A),
+    textSecondary = Color(0xFF475569),
+    iconButton = Color(0xF2FFFFFF),
+    iconButtonContent = Color(0xFF0F172A),
+    blood = Color(0xFFF59E0B),
 )
 
 private val WarmDark = WarmScheme(
     isDark = true,
-    // Capsule redesign (2026-07-10): charcoal canvas, no red cast.
-    canvasTop = Color(0xFF171512),
-    canvasBottom = Color(0xFF131110),
-    homeTop = Color(0xFF161010),
-    homeMid = Color(0xFF241511),
-    homeBottom = Color(0xFF321912),
-    heroA = Color(0xFFE07C5C),
-    heroB = Color(0xFFB23A2A),
-    onHero = Color(0xFFFFFFFF),
-    onHeroDim = Color(0xFFFFE7DE),
-    card = Color(0xB32A1C17),
-    cardBorder = Color(0x33E0987C),
-    textPrimary = Color(0xFFF3E7E1),
-    textSecondary = Color(0xFFB49E95),
-    iconButton = Color(0x1AFFFFFF),
-    iconButtonContent = Color(0xFFF3E7E1),
-    blood = Mono.Blood,
+    canvasTop = Color(0xFF090D16),
+    canvasBottom = Color(0xFF05080E),
+    homeTop = Color(0xFF0F172A),
+    homeMid = Color(0xFF1E1B4B),
+    homeBottom = Color(0xFF172554),
+    heroA = Color(0xFF4338CA),
+    heroB = Color(0xFF312E81),
+    onHero = Color(0xFFF8FAFC),
+    onHeroDim = Color(0xFFC7D2FE),
+    card = Color(0xCC1E293B),
+    cardBorder = Color(0x33818CF8),
+    textPrimary = Color(0xFFF8FAFC),
+    textSecondary = Color(0xFF94A3B8),
+    iconButton = Color(0x26FFFFFF),
+    iconButtonContent = Color(0xFFF8FAFC),
+    blood = Color(0xFFFBBF24),
 )
 
 @Composable
 fun rememberWarmScheme(): WarmScheme = if (rememberMonoScheme().isDark) WarmDark else WarmLight
 
-/** Subtle warm canvas gradient used behind every screen (via LunaScreenScaffold). */
+/** Subtle celestial canvas gradient used behind every screen (via LunaScreenScaffold). */
 fun WarmScheme.canvasBrush(): Brush = Brush.verticalGradient(listOf(canvasTop, canvasBottom))
 
-/** The rich Home background gradient (cream → peach → coral). */
+/** The rich Home background gradient (soft twilight to cosmic morning mist). */
 fun WarmScheme.homeBrush(): Brush = Brush.verticalGradient(listOf(homeTop, homeMid, homeBottom))
 
-/** The bold primary-card gradient (coral → brick, Luna's red family). */
+/** The bold primary-card gradient (luminous iris to deep twilight). */
 fun WarmScheme.heroBrush(): Brush = Brush.linearGradient(listOf(heroA, heroB))

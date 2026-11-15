@@ -241,6 +241,7 @@ fun LunaAppShell(
                     onOpenActivity = { navController.navigate(LunaRoutes.ACTIVITY) },
                     onOpenBrowser = onOpenBrowser,
                     onFixHealth = { navController.navigate(LunaRoutes.SETTINGS_PERMISSIONS) },
+                    onOpenProviderSettings = { navController.navigate(LunaRoutes.AGENT_BRAIN) },
                 )
             }
             composable(LunaRoutes.AGENT) {
@@ -270,6 +271,8 @@ fun LunaAppShell(
                     onOpenTerms = { navController.navigate(LunaRoutes.SETTINGS_TERMS) },
                     onOpenLicenses = { navController.navigate(LunaRoutes.SETTINGS_LICENSES) },
                     onOpenRestrictedApps = { navController.navigate(LunaRoutes.SETTINGS_RESTRICTED_APPS) },
+                    onOpenProviderSettings = { navController.navigate(LunaRoutes.AGENT_BRAIN) },
+                    onOpenVoiceSettings = { navController.navigate(LunaRoutes.AGENT_VOICE) },
                     onOpenEvalSuite = if (BuildConfig.DEBUG) {
                         { navController.navigate(LunaRoutes.EVAL_SUITE) }
                     } else {

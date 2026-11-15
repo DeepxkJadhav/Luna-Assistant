@@ -47,6 +47,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import com.luna.luna_ui.mcp.bridge.ProviderKeyStore
 import com.luna.luna_ui.agent.conversation.PersonaOwner
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
@@ -129,6 +130,7 @@ fun LunaHomeScreen(
     onOpenActivity: () -> Unit,
     onOpenBrowser: () -> Unit,
     onFixHealth: () -> Unit,
+    onOpenProviderSettings: () -> Unit = {},
     modifier: Modifier = Modifier,
     runActive: Boolean = false,
 ) {
@@ -179,6 +181,12 @@ fun LunaHomeScreen(
                 ) {
                     LunaBrowserButton(cs = cs, onClick = onOpenBrowser)
                     CircleIconButton(
+                        icon = Icons.Default.AutoAwesome,
+                        contentDescription = "AI Providers & API Keys",
+                        cs = cs,
+                        onClick = onOpenProviderSettings,
+                    )
+                    CircleIconButton(
                         icon = Icons.Outlined.Timeline,
                         contentDescription = "Activity logs and traces",
                         cs = cs,
@@ -200,13 +208,21 @@ fun LunaHomeScreen(
                     ) {
                         Column {
                             Spacer(Modifier.height(16.dp))
-                            // ── THE HERO — one grainy-peach card carrying the voice moment.
+                            val keyStore = remember(context) { ProviderKeyStore(context) }
+                            val selectedEndpointId = remember(health) { keyStore.getSelectedEndpointId() }
+                            val isKeyConfigured = remember(health, selectedEndpointId) { keyStore.isConfigured(selectedEndpointId) }
+
+                            // ── THE HERO — celestial card carrying Luna's voice moment.
                             HeroCard(
                                 cs = cs,
                                 greeting = if (name.isNullOrBlank()) greeting else "$greeting, $name",
                                 runActive = runActive,
                                 fit = fit,
                             )
+                            if (!isKeyConfigured) {
+                                Spacer(Modifier.height(12.dp))
+                                LunaKeySetupBanner(cs = cs, onSetup = onOpenProviderSettings)
+                            }
                             if (health.broken) {
                                 Spacer(Modifier.height(12.dp))
                                 HealthBanner(cs = cs, issue = health.firstIssue, onFix = onFixHealth)
@@ -333,14 +349,14 @@ private fun HeroCard(
                 }
                 Spacer(Modifier.height(14.dp * fit))
                 Text(
-                    text = "Tell me\nwhat's next.",
+                    text = "I'm Luna.\nHow can I care for you?",
                     style = MaterialTheme.typography.displaySmall,
                     color = cs.ink,
                     textAlign = TextAlign.Center,
                 )
                 Spacer(Modifier.height(10.dp))
                 Text(
-                    "Luna sees your screen and gets it done.",
+                    "I see your screen with sharp attention and gentle care.",
                     style = MaterialTheme.typography.bodyMedium,
                     color = cs.sub,
                     textAlign = TextAlign.Center,
@@ -448,3 +464,61 @@ internal fun homeScale(bodyHeightDp: Float, widthDp: Float): Float =
 /** Natural height of the home body (hero, marquee, talk pill, disclaimer) at scale 1. */
 private const val HOME_DESIGN_HEIGHT_DP = 620f
 private const val HOME_MIN_WIDTH_PER_SCALE_DP = 250f
+
+@Composable
+private fun LunaKeySetupBanner(cs: CapsuleScheme, onSetup: () -> Unit) {
+    Surface(
+        onClick = onSetup,
+        shape = Capsule.ShapeCard,
+        color = cs.card,
+        border = androidx.compose.foundation.BorderStroke(1.dp, cs.accent.copy(alpha = 0.40f)),
+        modifier = Modifier.fillMaxWidth(),
+    ) {
+        Row(
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+        ) {
+            Row(
+                modifier = Modifier.weight(1f),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+            ) {
+                Box(
+                    modifier = Modifier.size(34.dp).clip(CircleShape).background(cs.accent),
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.AutoAwesome,
+                        contentDescription = null,
+                        tint = cs.onAccent,
+                        modifier = Modifier.size(18.dp),
+                    )
+                }
+                Column {
+                    Text(
+                        "Connect your AI Key",
+                        style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.SemiBold),
+                        color = cs.ink,
+                    )
+                    Text(
+                        "Add Gemini, Claude, or OpenAI for voice & vision",
+                        style = MaterialTheme.typography.bodySmall,
+                        color = cs.sub,
+                    )
+                }
+            }
+            Surface(
+                shape = Capsule.ShapePill,
+                color = cs.accent,
+            ) {
+                Text(
+                    "Setup",
+                    style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
+                    color = cs.onAccent,
+                    modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),
+                )
+            }
+        }
+    }
+}

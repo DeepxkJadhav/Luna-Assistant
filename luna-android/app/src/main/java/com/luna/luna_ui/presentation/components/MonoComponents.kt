@@ -1,7 +1,13 @@
 package com.luna.luna_ui.presentation.components
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.spring
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -10,6 +16,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -234,11 +241,27 @@ fun MonoScopeBadge(
 }
 
 /** A small blood-red dot — live/attention indicator (active run, broken permission). */
+/** A small luminous starlight dot — live/attention indicator (active run, broken permission). */
 @Composable
 fun BloodDot(modifier: Modifier = Modifier, size: Dp = 8.dp) {
-    Box(modifier = modifier.size(size)) {
-        Canvas(modifier = Modifier.size(size)) {
-            drawCircle(color = Mono.Blood)
+    val infiniteTransition = androidx.compose.animation.core.rememberInfiniteTransition(label = "starlightPulse")
+    val pulseAlpha by infiniteTransition.animateFloat(
+        initialValue = 0.35f,
+        targetValue = 0.85f,
+        animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+            animation = androidx.compose.animation.core.tween(durationMillis = 1400, easing = androidx.compose.animation.core.FastOutSlowInEasing),
+            repeatMode = androidx.compose.animation.core.RepeatMode.Reverse,
+        ),
+        label = "pulseAlpha",
+    )
+    Box(modifier = modifier.size(size), contentAlignment = Alignment.Center) {
+        Canvas(modifier = Modifier.fillMaxSize()) {
+            val r = this.size.minDimension / 2f
+            drawCircle(
+                color = Mono.Blood.copy(alpha = pulseAlpha * 0.45f),
+                radius = r * 1.35f,
+            )
+            drawCircle(color = Mono.Blood, radius = r)
         }
     }
 }

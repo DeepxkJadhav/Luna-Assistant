@@ -36,6 +36,8 @@ import androidx.compose.material.icons.outlined.Hearing
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Insights
 import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.Psychology
+import androidx.compose.material.icons.outlined.RecordVoiceOver
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Screenshot
 import androidx.compose.material.icons.outlined.Search
@@ -100,6 +102,8 @@ fun MonoSettingsScreen(
     onOpenTerms: () -> Unit,
     onOpenLicenses: () -> Unit,
     onOpenRestrictedApps: () -> Unit = {},
+    onOpenProviderSettings: () -> Unit = {},
+    onOpenVoiceSettings: () -> Unit = {},
     /**
      * Debug builds only. Null in release, which is what keeps the eval cockpit out of a shipped
      * app: the row cannot render if the callback does not exist, so there is no way to reach the
@@ -236,9 +240,23 @@ fun MonoSettingsScreen(
             )
         }
 
-        // ── Integrations ─────────────────────────────────────────────────────
-        MonoSectionLabel("Integrations", scheme)
+        // ── AI Engine & API Keys ──────────────────────────────────────────
+        MonoSectionLabel("AI Engine & API Keys", scheme)
         MonoCardGroup(scheme) {
+            MonoRow(
+                icon = Icons.Outlined.Psychology,
+                title = "AI Providers & API Keys",
+                subtitle = "Gemini, Claude, OpenAI, DeepSeek, Groq, Ollama",
+                onClick = onOpenProviderSettings,
+            )
+            MonoDivider()
+            MonoRow(
+                icon = Icons.Outlined.RecordVoiceOver,
+                title = "Voice & Companion Mode",
+                subtitle = "Live voice BYOK key & persona tuning",
+                onClick = onOpenVoiceSettings,
+            )
+            MonoDivider()
             MonoRow(
                 icon = Icons.Outlined.Search,
                 title = "Web search (Tavily)",

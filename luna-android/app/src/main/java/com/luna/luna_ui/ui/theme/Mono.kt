@@ -32,9 +32,9 @@ object Mono {
     val OutlineOnInk = Color(0xFF2E2E2B)    // hairline separators inside ink surfaces
 
     // --- Blood (semantic attention only) ---
-    val Blood = Color(0xFFA31621)           // live dot, destructive, broken-permission
-    val BloodPressed = Color(0xFF7A1019)
-    val BloodContainer = Color(0xFFFBEBEC)  // soft red field behind warning banners
+    val Blood = Color(0xFFF59E0B)           // live dot, destructive, broken-permission
+    val BloodPressed = Color(0xFFD97706)
+    val BloodContainer = Color(0xFFFEF3C7)  // soft red field behind warning banners
 
     // --- Toggle green (the ONE sanctioned color exception) ---
     // iOS system green for the "on" state of switches, per the Settings-screen brief.
