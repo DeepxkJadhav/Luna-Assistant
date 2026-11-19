@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="luna-android/app/src/main/assets/onboarding/luna_logo_color.png" alt="Luna Assistant Logo" width="110" />
+  <img src="design/assets/luna-notch-mark-transparent.png" alt="Luna Assistant Logo" width="130" />
 </p>
 
 <h1 align="center">🌙 Luna Assistant</h1>

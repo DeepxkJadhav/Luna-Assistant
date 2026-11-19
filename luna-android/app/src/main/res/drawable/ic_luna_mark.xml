@@ -5,44 +5,87 @@
     android:height="108dp"
     android:viewportWidth="108"
     android:viewportHeight="108">
-    <!-- Luminous Celestial Glow -->
+    <!-- Soft Celestial Lavender Glow -->
     <path
-        android:fillAlpha="0.25"
-        android:pathData="M54,54m-42,0a42,42 0,1 1,84 0a42,42 0,1 1,-84 0">
+        android:fillAlpha="0.35"
+        android:pathData="M54,54m-44,0a44,44 0,1 1,88 0a44,44 0,1 1,-88 0">
         <aapt:attr name="android:fillColor">
             <gradient
                 android:centerX="54"
                 android:centerY="54"
-                android:gradientRadius="42"
+                android:gradientRadius="44"
                 android:type="radial">
-                <item android:color="#FF6366F1" android:offset="0.0" />
-                <item android:color="#FF38BDF8" android:offset="0.6" />
+                <item android:color="#FFDDD6FE" android:offset="0.0" />
+                <item android:color="#80C4B5FD" android:offset="0.5" />
+                <item android:color="#20A78BFA" android:offset="0.8" />
                 <item android:color="#00000000" android:offset="1.0" />
             </gradient>
         </aapt:attr>
     </path>
-    <!-- Luna Crescent Moon -->
+
+    <!-- Outer Upper Orbital Arc -->
     <path
-        android:pathData="M 54,20 C 35.22,20 20,35.22 20,54 C 20,72.78 35.22,88 54,88 C 64.6,88 74.02,83.15 80.25,75.52 C 63.85,73.12 51.15,59.08 51.15,42.06 C 51.15,32.88 54.88,24.58 60.98,18.52 C 58.72,17.55 56.41,20 54,20 Z">
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.65"
+        android:strokeColor="#FFDDD6FE"
+        android:pathData="M 60,16 C 75,17 88,28 92,42" />
+
+    <!-- Outer Lower Orbital Arc -->
+    <path
+        android:strokeWidth="1.2"
+        android:strokeAlpha="0.55"
+        android:strokeColor="#FFC4B5FD"
+        android:pathData="M 32,79 C 42,88 56,92 68,91" />
+
+    <!-- Crescent Moon (Pearl White with Subtle Lavender Illumination) -->
+    <path
+        android:pathData="M 58,22 C 38,22 24,36 24,54 C 24,72 38,86 58,86 C 65,86 70,84 74,80 C 62,78 53,70 50,60 C 47,56 46,52 48,46 C 43,48 38,42 38,34 C 38,29 42,24 46,21 C 50,19 54,21 58,22 Z">
         <aapt:attr name="android:fillColor">
             <gradient
-                android:startX="20"
-                android:startY="20"
+                android:startX="24"
+                android:startY="22"
                 android:endX="84"
-                android:endY="88"
+                android:endY="86"
                 android:type="linear">
-                <item android:color="#FF6366F1" android:offset="0.0" />
-                <item android:color="#FF38BDF8" android:offset="0.5" />
-                <item android:color="#FFF8FAFC" android:offset="1.0" />
+                <item android:color="#FFFFFFFF" android:offset="0.0" />
+                <item android:color="#FFF8FAFC" android:offset="0.4" />
+                <item android:color="#FFDDD6FE" android:offset="0.75" />
+                <item android:color="#FFC4B5FD" android:offset="1.0" />
             </gradient>
         </aapt:attr>
     </path>
-    <!-- Starlight Companion Star -->
+
+    <!-- Companion Four-Pointed Star -->
     <path
-        android:fillColor="#FFF8FAFC"
-        android:pathData="M 68,44 L 70.5,50 L 76.5,52.5 L 70.5,55 L 68,61 L 65.5,55 L 59.5,52.5 L 65.5,50 Z" />
+        android:pathData="M 66,34 C 66,41 68,44 75,46 C 68,48 66,51 66,58 C 66,51 64,48 57,46 C 64,44 66,41 66,34 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:startX="57"
+                android:startY="34"
+                android:endX="75"
+                android:endY="58"
+                android:type="linear">
+                <item android:color="#FFFFFFFF" android:offset="0.0" />
+                <item android:color="#FFF5F3FF" android:offset="0.5" />
+                <item android:color="#FFEDE9FE" android:offset="1.0" />
+            </gradient>
+        </aapt:attr>
+    </path>
+
     <!-- Radiant Starlight Center -->
     <path
         android:fillColor="#FFFFFFFF"
-        android:pathData="M68,52.5m-2.2,0a2.2,2.2 0,1 1,4.4 0a2.2,2.2 0,1 1,-4.4 0" />
+        android:pathData="M66,46m-1.5,0a1.5,1.5 0,1 1,3 0a1.5,1.5 0,1 1,-3 0" />
+
+    <!-- Orbital Planetary Ring -->
+    <path
+        android:strokeWidth="1.2"
+        android:strokeColor="#FFDDD6FE"
+        android:strokeAlpha="0.80"
+        android:pathData="M 22,72 C 34,76 52,72 68,64 C 78,59 86,54 94,48" />
+
+    <!-- Diamond Node on Orbital Ring -->
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M 63,64 L 65,62 L 67,64 L 65,66 Z" />
 </vector>

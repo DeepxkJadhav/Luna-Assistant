@@ -3,7 +3,7 @@
 > **Keep this file current.** If you add, remove, rename or repurpose anything in this folder,
 > update this README in the same commit. A stale map is worse than no map.
 >
-> **Last reviewed:** 2026-11-05.
+> **Last reviewed:** 2026-11-19.
 
 Everything the user sees in the Luna **app** (Settings, onboarding, the MCP centre, traces, eval),
 plus the **overlay UI** the assistant draws on top of other apps. All of it is Jetpack Compose.

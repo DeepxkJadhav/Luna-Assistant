@@ -9,7 +9,8 @@ Production-ready Android application package for **Luna Assistant v1.0.0** creat
 | Source | Link | Details |
 | :--- | :--- | :--- |
 | 🚀 **Official GitHub Release** | **[Download Luna-Assistant-v1.0.0.apk](https://github.com/DeepxkJadhav/Luna-Assistant/releases/tag/v1.0.0)** | High-speed CDN download from GitHub Releases |
-| 💻 **Local Build Output** | `luna-android/app/build/outputs/apk/debug/app-debug.apk` | Ready on local machine |
+| 💻 **Local Build Output (Signed Release)** | `luna-android/app/build/outputs/apk/release/app-release.apk` | Production release package (162 MB) |
+| 🛠️ **Local Build Output (Debug)** | `luna-android/app/build/outputs/apk/debug/app-debug.apk` | Development debug package with symbols |
 
 ---
 

@@ -571,15 +571,26 @@ class AgentStatusOverlay(private val context: Context) {
         }
         headlineLine = headline
 
+        val lunaMark = android.widget.ImageView(context).apply {
+            setImageResource(com.luna.luna_ui.R.drawable.ic_notification)
+            setColorFilter(Color.parseColor("#FFDDD6FE")) // Subtle lavender-pearl illumination
+        }
+
         val icon = BeatIconView(context, INK, BLOOD)
         beatIcon = icon
         val row = LinearLayout(context).apply {
             orientation = LinearLayout.HORIZONTAL
+            gravity = android.view.Gravity.CENTER_VERTICAL
+            addView(
+                lunaMark,
+                LinearLayout.LayoutParams(16.dp(), 16.dp()).apply {
+                    marginEnd = 8.dp()
+                },
+            )
             addView(
                 icon,
                 LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply {
-                    marginEnd = 10.dp()
-                    topMargin = 1.dp()
+                    marginEnd = 8.dp()
                 },
             )
             addView(status, LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f))

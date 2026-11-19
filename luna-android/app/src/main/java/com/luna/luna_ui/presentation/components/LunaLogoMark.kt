@@ -51,16 +51,16 @@ import com.luna.luna_ui.ui.theme.LunaBrandViolet
 // a breathing starlight halo.
 // ============================================================================
 
-/** AGSL celestial aurora shader: domain-warped celestial twilight flow. */
+/** AGSL celestial lavender illumination shader: subtle pearl and lavender flow. */
 private const val LUNA_FLOW_AGSL = """
 uniform float uTime;
 uniform float2 uRes;
 half3 pal(float x) {
-    half3 c0 = half3(0.388, 0.400, 0.945); // Celestial Iris
-    half3 c1 = half3(0.220, 0.741, 0.973); // Moonlit Cyan
-    half3 c2 = half3(0.659, 0.333, 0.969); // Cosmic Purple
-    half3 c3 = half3(0.204, 0.827, 0.600); // Aurora Mint
-    half3 c4 = half3(0.973, 0.980, 0.988); // Starlight Pearl
+    half3 c0 = half3(0.973, 0.980, 0.988); // Starlight Pearl White
+    half3 c1 = half3(0.867, 0.839, 0.996); // Soft Lavender
+    half3 c2 = half3(0.769, 0.710, 0.992); // Radiant Lilac
+    half3 c3 = half3(0.650, 0.550, 0.980); // Subtle Lavender Illumination
+    half3 c4 = half3(1.000, 1.000, 1.000); // Pure Pearl White
     x = fract(x) * 5.0;
     float i = floor(x);
     float f = smoothstep(0.0, 1.0, fract(x));
@@ -215,7 +215,7 @@ fun LunaLogoAvatar(
     Canvas(modifier = modifier.size(size)) {
         drawLunaVectorLogo(
             brush = Brush.linearGradient(
-                colors = listOf(LunaBrandViolet, LunaBrandCyan),
+                colors = listOf(Color(0xFFEDE9FE), Color(0xFFC4B5FD)),
             ),
         )
     }
@@ -244,36 +244,39 @@ fun DrawScope.drawLunaVectorLogo(
     val center = this.center
     val radius = size.minDimension * 0.40f
 
-    // 1. The Luminous Crescent Moon
+    // 1. The Luminous Crescent Moon with subtle notch
     val moonPath = Path().apply {
         addArc(
-            oval = Rect(center = center, radius = radius),
-            startAngleDegrees = -115f,
-            sweepAngleDegrees = 230f,
+            oval = Rect(center = Offset(center.x - radius * 0.08f, center.y), radius = radius),
+            startAngleDegrees = -118f,
+            sweepAngleDegrees = 236f,
         )
-        val innerCenter = Offset(center.x + radius * 0.36f, center.y)
+        val innerCenter = Offset(center.x + radius * 0.28f, center.y)
         arcTo(
-            rect = Rect(center = innerCenter, radius = radius * 0.80f),
-            startAngleDegrees = 115f,
-            sweepAngleDegrees = -230f,
+            rect = Rect(center = innerCenter, radius = radius * 0.78f),
+            startAngleDegrees = 118f,
+            sweepAngleDegrees = -236f,
             forceMoveTo = false,
         )
         close()
     }
     drawPath(path = moonPath, brush = brush, alpha = alpha, blendMode = blendMode)
 
-    // 2. The Companion Starlight Star within the crescent's embrace
-    val starCenter = Offset(center.x + radius * 0.30f, center.y - radius * 0.05f)
-    val starR = radius * 0.20f
+    // 2. The Companion Four-Pointed Starlight Star within the crescent's embrace
+    val starCenter = Offset(center.x + radius * 0.32f, center.y - radius * 0.04f)
+    val starR = radius * 0.24f
     val starPath = Path().apply {
-        val points = 8
-        for (i in 0 until points) {
-            val r = if (i % 2 == 0) starR else starR * 0.36f
-            val angle = Math.toRadians((i * (360.0 / points)) - 90.0)
-            val x = (starCenter.x + r * Math.cos(angle)).toFloat()
-            val y = (starCenter.y + r * Math.sin(angle)).toFloat()
-            if (i == 0) moveTo(x, y) else lineTo(x, y)
-        }
+        val top = Offset(starCenter.x, starCenter.y - starR)
+        val right = Offset(starCenter.x + starR * 0.70f, starCenter.y)
+        val bottom = Offset(starCenter.x, starCenter.y + starR)
+        val left = Offset(starCenter.x - starR * 0.70f, starCenter.y)
+        val waist = starR * 0.10f
+
+        moveTo(top.x, top.y)
+        quadraticTo(starCenter.x + waist, starCenter.y - waist, right.x, right.y)
+        quadraticTo(starCenter.x + waist, starCenter.y + waist, bottom.x, bottom.y)
+        quadraticTo(starCenter.x - waist, starCenter.y + waist, left.x, left.y)
+        quadraticTo(starCenter.x - waist, starCenter.y - waist, top.x, top.y)
         close()
     }
     drawPath(path = starPath, brush = brush, alpha = alpha, blendMode = blendMode)
@@ -281,7 +284,7 @@ fun DrawScope.drawLunaVectorLogo(
     // 3. Central Starlight Core
     drawCircle(
         brush = brush,
-        radius = starR * 0.28f,
+        radius = starR * 0.22f,
         center = starCenter,
         alpha = alpha,
         blendMode = blendMode,
